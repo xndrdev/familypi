@@ -1,0 +1,8 @@
+[Unit]
+Description=Backup der Familien-Display-Datenbank
+
+[Service]
+Type=oneshot
+User=familydisplay
+# Konsistente Kopie im laufenden Betrieb (SQLite-Online-Backup), 14 Tage aufbewahren
+ExecStart=/bin/sh -c 'mkdir -p /opt/familydisplay/data/backups && sqlite3 /opt/familydisplay/data/family.db ".backup /opt/familydisplay/data/backups/family-$(date +%%F).db" && find /opt/familydisplay/data/backups -name "family-*.db" -mtime +14 -delete'

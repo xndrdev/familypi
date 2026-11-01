@@ -1,0 +1,22 @@
+[Unit]
+Description=Familien-Display (API, Discord-Bot, Kalender-Sync)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=familydisplay
+WorkingDirectory=/opt/familydisplay
+EnvironmentFile=/opt/familydisplay/familydisplay.env
+ExecStart=/opt/familydisplay/familydisplay
+Restart=always
+RestartSec=5
+
+# Haertung: der Dienst braucht nur sein eigenes Datenverzeichnis
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/familydisplay/data
+
+[Install]
+WantedBy=multi-user.target
